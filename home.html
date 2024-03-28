@@ -3,18 +3,28 @@
     <head>
         <title>Page d'accueil</title> <!--titre affiché a l'onglet-->
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="home.css"><!--lien avec css-->
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!--lien vers les icones-->
     </head>
     <body>
-        <div id="login">
-            <h1>Aix-Marseille Université - Service d'authentification</h1>
-            <h3>MAP DE LUMINY</h3>
-            <form>
-                <p>Identifiant:</p>
-                <input type="text" placeholder="Identifiant" name="ident">
-                <p>Identifiant:</p>
-                <input type="password" placeholder="Mot de passe" name="password">
-                <input type="submit" value="se connecter">
-              </form>
+        <div class="wrapper">
+            <form action="">
+                <h1>Luminy's map - Service d'authentification</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Identifiant" required>  
+                    <i class='bx bx-user'></i>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" placeholder="Mot de passe"required>
+                    <i class='bx bx-key'></i>
+                </div>
+            </form>
+            <div class="remember">
+                <label><input type="checkbox">Se souvenir de moi</label>
+            </div>
+
+            <button type="submit" class="btn">Se Connecter</button>
         </div>
     </body>
 </html>
