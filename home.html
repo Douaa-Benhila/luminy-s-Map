@@ -8,23 +8,24 @@
     </head>
     <body>
         <div class="wrapper">
-            <form action="">
+            <form action="#" method="post">
                 <h1>Luminy's map - Service d'authentification</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Identifiant" required>  
+                    <input type="text" name="username" placeholder="Identifiant" required>  
                     <i class='bx bx-user'></i>
                 </div>
 
                 <div class="input-box">
-                    <input type="password" placeholder="Mot de passe"required>
+                    <input type="password" name="password" placeholder="Mot de passe" required>
                     <i class='bx bx-key'></i>
                 </div>
+                <div class="remember">
+                    <label><input type="checkbox">Se souvenir de moi</label>
+                </div>
+    
+                <button type="submit" class="btn">Se Connecter</button>
             </form>
-            <div class="remember">
-                <label><input type="checkbox">Se souvenir de moi</label>
-            </div>
-
-            <button type="submit" class="btn">Se Connecter</button>
+            
         </div>
     </body>
 </html>
