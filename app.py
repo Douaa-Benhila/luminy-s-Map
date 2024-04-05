@@ -1,4 +1,4 @@
-from flask import Flask , render_template  # type: ignore #importer flask
+from flask import Flask , render_template , request, redirect, session # type: ignore #importer flask
 import sqlite3 
 
 app = Flask(__name__) # créer une instance du flask
@@ -41,6 +41,8 @@ def creer_table():
 
 
 creer_table()
+
+
 
 #définir les routes et les vues 
 @app.route('/')
