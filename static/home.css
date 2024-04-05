@@ -66,12 +66,7 @@ body {
     transform: translateY(-50%);
 }
 
-.wrapper .remember{
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
+
 
 .remember label input{
     accent-color: black;

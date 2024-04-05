@@ -63,9 +63,9 @@ def login_page():
         password = request.form['password']
         # retourne l'id s'il existe dans une base de données
         user_id_db = login(user_id, password)
-        # si l id est different de -1 du coup la connexion est réussi 
+        # si l id est different de -1 autrement dit il existe  
         if user_id_db != -1:
-            session['user_id'] = user_id_db 
+            session['user_id'] = user_id_db  
             return redirect('/dashboard')
         else:
             error = 'Identifiants incorrects. Veuillez réessayer.'
