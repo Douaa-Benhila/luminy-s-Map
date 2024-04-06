@@ -52,26 +52,26 @@ def login(user_id, password):
     if user:
         return user[0]  #si la connexion est réussi , je retourne la clé id associé à l'utilisateur
     else:
-        return -1  # Retourne -1 , sinon 
+        return None  # Retourne un message  , sinon (changer ma solution minimale)
 
 # defini les routes 
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
+    error_message = None  # Initialisez la variable d'erreur à None
     if request.method == 'POST':
         #récupère les valeurs de formulaire
         user_id = request.form['user_id']
         password = request.form['password']
         # retourne l'id s'il existe dans une base de données
         user_id_db = login(user_id, password)
-        # si l id est different de -1 autrement dit il existe  
-        if user_id_db != -1:
+        # si l id est different de None autrement dit il existe  
+        if user_id_db is not None:
             session['user_id'] = user_id_db  
             return redirect('/dashboard')
         else:
-            error = 'Identifiants incorrects. Veuillez réessayer.'
-            return render_template('home.html', error=error)
-    else:
-        return render_template('home.html')
+            error_message = 'Mauvais identifiant / mot de passe.'
+           
+    return render_template('home.html', error_message=error_message)
 
 
 #page temporaire 

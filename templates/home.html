@@ -10,8 +10,14 @@
 
     <body>
         <div class="wrapper">
-            <form action="#" method="post"> <!-- j'ai pas compris cette méthode-->
+            <form action="/" method="post"> <!-- j'ai pas compris cette méthode-->
                 <h1>Luminy's map - Service d'authentification</h1>
+
+                <div id="error-message"> <!--balise pour manipuler si un des entrées est incorrecte-->
+                    {% if error_message %}
+                    <p>{{ error_message }}</p> 
+                    {% endif %}
+                </div>
 
                 <div class="input-box">
                     <input type="text" name="user_id" placeholder="Identifiant" >  
@@ -22,7 +28,6 @@
                     <input type="password" name="password" placeholder="Mot de passe" >
                     <i class='bx bx-key'></i>
                 </div>
-                
     
                 <button type="submit" class="btn">Se Connecter</button>
             </form>
