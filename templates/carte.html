@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte</title>
+    <!-- Importer l'API JavaScript de Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6lvdZ4RtwoEBL90Tm1gfhJjvJ0yUNx9g&libraries=places"></script>
+    <link rel="stylesheet" href="carte.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!--lien vers les icones-->
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+        <div id="map"></div>
+        <div id="input-box">
+          <input type="text" name ="destination-input" placeholder="Entrez votre destination...">
+          <i class='bx bx-search'></i>
+          <i class='bx bxs-directions'></i>
+        </div>
+        <i class='bx bx-map' ></i>
+      </div>
+    
+      <script src="carte.js"></script>
+</body>
+</html>
