@@ -75,12 +75,12 @@ def login_page():
 
 
 #page temporaire 
-# Page du tableau de bord
-@app.route('/dashboard')
+# Page du map
+@app.route('/carte.html')
 def dashboard():
     if 'user_id' in session:
-        # Si l'utilisateur est connecté, renvoyer le tableau de bord
-        return render_template('dashboard.html')
+        # Si l'utilisateur est connecté, renvoyer la map
+        return render_template('carte.html')
     else:
         # Sinon, rediriger vers la page de connexion
         return redirect('/login')
