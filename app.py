@@ -77,7 +77,7 @@ def login_page():
 #page temporaire 
 # Page du map
 @app.route('/carte.html')
-def dashboard():
+def carte():
     if 'user_id' in session:
         # Si l'utilisateur est connecté, renvoyer la map
         return render_template('carte.html')
