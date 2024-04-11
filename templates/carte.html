@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Carte</title>
     <!-- Importer l'API JavaScript de Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6lvdZ4RtwoEBL90Tm1gfhJjvJ0yUNx9g&libraries=places"></script>
-    <link rel="stylesheet" href="carte.css">
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+                ({key: "AIzaSyA6lvdZ4RtwoEBL90Tm1gfhJjvJ0yUNx9g", v: "weekly"});</script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!--lien vers les icones-->
-
+    <link rel="stylesheet" href="../static/carte.css">
+    
 
 </head>
 
@@ -19,10 +20,20 @@
           <input type="text" name ="destination-input" placeholder="Entrez votre destination...">
           <i class='bx bx-search'></i>
           <i class='bx bxs-directions'></i>
+          <br>
+          <input type="text" name ="localisation-input" placeholder="Entrez votre position...">
+          <i class='bx bx-map' ></i>
         </div>
-        <i class='bx bx-map' ></i>
-      </div>
+        
+    </div>
+
+    <script src="../static/carte.js"></script>
+
     
-      <script src="carte.js"></script>
+    
+    
+    
+      
+    
 </body>
 </html>
