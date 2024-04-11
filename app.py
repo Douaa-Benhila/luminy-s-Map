@@ -67,14 +67,14 @@ def login_page():
         # si l id est different de None autrement dit il existe  
         if user_id_db is not None:
             session['user_id'] = user_id_db  
-            return redirect('/dashboard')
+            return redirect('/carte.html')
         else:
             error_message = 'Mauvais identifiant / mot de passe.'
            
     return render_template('home.html', error_message=error_message)
 
 
-#page temporaire 
+
 # Page du map
 @app.route('/carte.html')
 def carte():
