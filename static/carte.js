@@ -1,4 +1,5 @@
 let map;
+
 async function initMap() {
     const googleMaps = await google.maps.importLibrary("maps");
     const Map = googleMaps.Map;
@@ -28,6 +29,14 @@ async function initMap() {
                     map: map,
                     title: 'Votre position'
                 });
+    
+                // Créer une infobulle pour le marqueur
+                var infowindow = new google.maps.InfoWindow({
+                    content: 'Vous êtes ici'
+                });
+    
+                // Ouvrir l'infobulle au-dessus du marqueur
+                infowindow.open(map, marker);
             }, function(error) {
                 // Gérer les erreurs de géolocalisation
                 console.error('Erreur de géolocalisation : ', error);
@@ -37,6 +46,7 @@ async function initMap() {
             console.error('La géolocalisation n\'est pas prise en charge par votre navigateur.');
         }
     });
+    
     
     
     
@@ -83,13 +93,32 @@ async function initMap() {
     addMarker({
         coordinates: { lat: 43.23046503591347, lng: 5.439698134937945 },
         content: '<h4>TECHNOSPORT </h4>'
+    }); 
+
+    // Liste des points de départ
+    const pointsDepart = [
+        { lat: 43.23088195706794, lng: 5.439546484046008 },
+        { lat: 43.22958219470281, lng: 5.441088154203516 },
+        { lat: 43.23046503591347, lng: 5.439698134937945 },
+        //ajouter d'autre trajets
+    ];
+
+    // Liste des points d'arrivée
+    const pointsArrivee = [
+        { lat: 43.23088195706794, lng: 5.439546484046008 },
+        { lat: 43.22958219470281, lng: 5.441088154203516 },
+        { lat: 43.23046503591347, lng: 5.439698134937945 },
+        // ajouter d'autre trajets 
+    ];
+
+    // Pour chaque point de départ
+    pointsDepart.forEach(pointDepart => {
+        // Pour chaque point d'arrivée
+        pointsArrivee.forEach(pointArrivee => {
+            // Dessiner l'itinéraire entre ce point de départ et ce point d'arrivée
+            drawDirection(pointDepart, pointArrivee);
+        });
     });
-
-    drawDirection()
-   
-
-
-    
 }
 
 function addMarker(prop) {
@@ -108,11 +137,11 @@ function addMarker(prop) {
         });
     }
 }
-
-function drawDirection() {
+// dessine les directions a revoir 
+function drawDirection(start, end, showMarkers) {
     // Créer une instance du service de directions
     const directionService = new google.maps.DirectionsService();
-    
+
     // Créer une instance du rendu des directions
     const directionRenderer = new google.maps.DirectionsRenderer();
 
@@ -121,9 +150,10 @@ function drawDirection() {
 
     // Définir les options de la demande de directions
     const request = {
-        origin: { lat: 43.23088195706794, lng: 5.439546484046008 },
-        destination: { lat: 43.22958219470281, lng: 5.441088154203516 },
-        travelMode: google.maps.TravelMode.WALKING
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.WALKING,
+        optimizeWaypoints: true // Réorganiser les waypoints pour trouver le chemin le plus court
     };
 
     // Envoyer la demande de directions
@@ -131,6 +161,11 @@ function drawDirection() {
         if (status === google.maps.DirectionsStatus.OK) {
             // Afficher l'itinéraire sur la carte
             directionRenderer.setDirections(response);
+            if (showMarkers) {
+                // Ajouter des marqueurs uniquement si showMarkers est vrai
+                addMarker({ coordinates: start });
+                addMarker({ coordinates: end });
+            }
         } else {
             console.error('Impossible de trouver l\'itinéraire. Statut :', status);
         }
