@@ -105,6 +105,58 @@ function startNavigation() {
     }
 }
 
+// Écouter l'événement de clic sur le bouton "Recalculer l'itinéraire"
+document.getElementById('recalculateButton').addEventListener('click', recalculateRoute);
+
+// Fonction pour recalculer l'itinéraire à partir de la position actuelle de l'utilisateur
+function recalculateRoute() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLatLng = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Mettre à jour le point de départ avec la position actuelle de l'utilisateur
+            const startPointName = "Votre position";
+            const endPointName = document.querySelector('input[name="destination-input"]').value;
+
+            // Récupérer les coordonnées correspondant aux noms saisis
+            const startPointCoords = userLatLng;
+            const endPointCoords = getBuildingCoordinates(endPointName);
+
+            // Vérifier si les deux points sont spécifiés et s'ils ont des coordonnées correspondantes
+            if (startPointCoords && endPointCoords) {
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer();
+                directionsRenderer.setMap(map);
+
+                directionsService.route(
+                    {
+                        origin: startPointCoords,
+                        destination: endPointCoords,
+                        travelMode: google.maps.TravelMode.WALKING // Spécifier le mode de transport (piéton)
+                    },
+                    (response, status) => {
+                        if (status === "OK") {
+                            directionsRenderer.setDirections(response);
+                        } else {
+                            window.alert("Impossible de recalculer l'itinéraire : " + status);
+                        }
+                    }
+                );
+            } else {
+                window.alert("Veuillez spécifier le point de départ et le point d'arrivée.");
+            }
+        }, function(error) {
+            // Gérer les erreurs de géolocalisation
+            console.error('Erreur de géolocalisation : ', error);
+        });
+    } else {
+        // Gérer les navigateurs ne prenant pas en charge la géolocalisation
+        console.error('La géolocalisation n\'est pas prise en charge par votre navigateur.');
+    }
+}
 
 // initialiser ma map (son affichage)
 async function initMap() {
