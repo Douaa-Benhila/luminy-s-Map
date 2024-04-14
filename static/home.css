@@ -24,6 +24,7 @@ nav img{
 .nav_info{
     flex: 1;
     text-align: right;
+    text-decoration: none;
 }
 .nav_info ul li {
     list-style: none;
@@ -43,9 +44,16 @@ nav img{
     display: block;
     margin: auto;
     transition:0.5s;
+    text-decoration: none;
 }
 .nav_info ul li:hover::after{
     width:100%;
+    text-decoration: none;
+}
+.nav_info ul li a:visited {
+    color: #fff;
+    text-decoration: none;
+
 }
 .text-box{
     width: 90%;
