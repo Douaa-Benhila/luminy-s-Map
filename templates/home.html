@@ -9,10 +9,10 @@
     <body>
         <div class="header">
             <nav>
-                <img src="logo_amu.png" alt="logo université" >
+                <img src="{{ url_for('static', filename='logo_amu.png') }}" alt="logo université">
                 <div class ="nav_info">
                     <ul>
-                      <li>HOME</li>
+                      <li><a href="/">HOME</a></li>
                       <li>REGISTER/LOGIN</li>
                       <li>MAP</li> 
                       <li>LOGOUT</li>
