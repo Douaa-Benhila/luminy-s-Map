@@ -7,18 +7,8 @@
     </head>
 
     <body>
+        {% include 'navbar.html' %}
         <div class="header">
-            <nav>
-                <img src="{{ url_for('static', filename='logo_amu.png') }}" alt="logo université">
-                <div class ="nav_info">
-                    <ul>
-                      <li><a href="/">HOME</a></li>
-                      <li><a href="{{ url_for('login') }}">SIGN-UP / LOG-IN</a></li>
-                      <li>MAP</li> 
-                      <li>LOGOUT</li>
-                    </ul>
-                </div>
-            </nav>
             <div class="text-box">
                 <h1>LUMINY'S MAP</h1>
                 <p> Bienvenue sur le site de navigation de notre université ! <br> Vous êtes ici pour explorer 
