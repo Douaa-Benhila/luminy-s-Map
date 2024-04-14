@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="navbar.css"> 
+</head>
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='logo_amu.png') }}" alt="logo université">
+        <div class ="nav_info">
+            <ul>
+              <li><a href="/">HOME</a></li>
+              <li><a href="{{ url_for('login') }}">SIGN-UP / LOG-IN</a></li>
+              <li>MAP</li> 
+              <li>LOGOUT</li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
