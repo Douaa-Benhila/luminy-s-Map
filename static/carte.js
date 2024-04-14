@@ -1,4 +1,5 @@
 let map;
+let directionsRenderer;
 
 async function calculateAndDisplayRoute() {
     const startPointName = document.querySelector('input[name="localisation-input"]').value;
@@ -56,6 +57,53 @@ function getBuildingCoordinates(buildingName) {
 // Écouter l'événement de clic sur le bouton de recherche
 document.querySelector('.bx-search').addEventListener('click', calculateAndDisplayRoute);
 
+// Écouter l'événement de clic sur le bouton "Démarrer"
+document.getElementById('startButton').addEventListener('click', startNavigation);
+
+// Fonction pour démarrer la navigation
+function startNavigation() {
+    const startPointName = document.querySelector('input[name="localisation-input"]').value;
+    const endPointName = document.querySelector('input[name="destination-input"]').value;
+
+    // Récupérer les coordonnées correspondant aux noms saisis
+    const startPointCoords = getBuildingCoordinates(startPointName);
+    const endPointCoords = getBuildingCoordinates(endPointName);
+
+    // Vérifier si les deux points sont spécifiés et s'ils ont des coordonnées correspondantes
+    if (startPointCoords && endPointCoords) {
+        // Utiliser les coordonnées pour centrer la carte entre les deux points
+        map.setCenter(startPointCoords);
+
+        // Déplacer la carte le long de l'itinéraire
+        const step = 100; // Définir un pas de déplacement
+        let index = 0;
+
+        // Déplacer la carte le long de l'itinéraire
+        const moveAlongRoute = () => {
+            if (!directionsRenderer.directions || !directionsRenderer.directions.routes || 
+            !directionsRenderer.directions.routes[0] || 
+            !directionsRenderer.directions.routes[0].overview_path ||
+            index >= directionsRenderer.directions.routes[0].overview_path.length) {
+            // Si les données de l'itinéraire ne sont pas disponibles ou si nous avons atteint la fin de l'itinéraire, arrêter la navigation
+            document.getElementById('arrivalMessage').innerText = "Vous êtes arrivé à destination !";
+            return;
+        }
+
+    // Déplacer la carte au prochain point de l'itinéraire
+        map.panTo(directionsRenderer.directions.routes[0].overview_path[index]);
+        index += step;
+
+    // Appeler récursivement cette fonction pour déplacer la carte progressivement
+        setTimeout(moveAlongRoute, 1000); // Définir le délai entre chaque déplacement (en millisecondes)
+};
+
+
+        // Démarrer la navigation
+        moveAlongRoute();
+    } else {
+        window.alert("Veuillez spécifier le point de départ et le point d'arrivée.");
+    }
+}
 
 
 // initialiser ma map (son affichage)
