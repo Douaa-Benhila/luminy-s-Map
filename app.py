@@ -118,6 +118,15 @@ def signup():
     # Redirigez l'utilisateur vers la page de connexion après l'inscription réussie ou non
     return redirect('/login')
 
+# Route pour la déconnexion
+@app.route('/logout')
+def logout():
+    # Effacez les informations de session de l'utilisateur
+    session.pop('user_id', None)
+    # Redirigez l'utilisateur vers la page de connexion
+    return redirect('/')
+
+
 
 
 
