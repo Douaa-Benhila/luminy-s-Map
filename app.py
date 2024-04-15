@@ -70,27 +70,54 @@ def carte():
 def home():
     return render_template('home.html')
 
-# route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
-    error_message = None  # Initialisez la variable d'erreur à None
+    error_message = None
+    if 'user_id' in session:
+        # Si l'utilisateur est déjà connecté, redirigez-le vers la page de carte
+        return redirect('/carte.html')
+
     if request.method == 'POST':
-        # Récupère les valeurs de formulaire
+        # Vérifiez les identifiants de l'utilisateur
         username = request.form['username']
         password = request.form['password']
-        # Retourne l'id s'il existe dans une base de données
         user_id_db = login(username, password)
-        # Si l'id existe, connectez l'utilisateur
         if user_id_db is not None:
-            session['user_id'] = user_id_db  # Utilisez la bonne clé pour stocker l'ID de l'utilisateur
+            session['user_id'] = user_id_db
             return redirect('/carte.html')
         else:
             error_message = 'Mauvais identifiant / mot de passe.'
-    else:
-        # Redirection vers la page de connexion si la méthode de requête est GET
-        return redirect('/login')
-           
+    
+    # Si la méthode de requête est GET ou si l'authentification échoue, affichez la page de connexion
     return render_template('login.html', error_message=error_message)
+
+# route pour la page d'inscription
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.form['username']
+    password = request.form['password']
+    
+    # Vérifiez d'abord si l'utilisateur existe déjà dans la base de données
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM USER WHERE username = ?", (username,))
+    existing_user = cur.fetchone()
+    
+    if existing_user:
+        # Si l'utilisateur existe déjà, renvoyer un message indiquant qu'il existe déjà
+        flash("L'utilisateur existe déjà. Veuillez choisir un autre nom d'utilisateur.")
+    else:
+        # Sinon, ajoutez l'utilisateur à la base de données
+        cur.execute("INSERT INTO USER (username, password) VALUES (?, ?)", (username, password))
+        conn.commit()
+        # Affichez un message à l'utilisateur lui indiquant que son compte a été créé avec succès
+        flash("Votre compte a été créé avec succès. Veuillez vous connecter.")
+    
+    conn.close()
+    
+    # Redirigez l'utilisateur vers la page de connexion après l'inscription réussie ou non
+    return redirect('/login')
+
 
 
 
