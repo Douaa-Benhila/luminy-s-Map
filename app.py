@@ -118,13 +118,33 @@ def signup():
     # Redirigez l'utilisateur vers la page de connexion après l'inscription réussie ou non
     return redirect('/login')
 
+
 # Route pour la déconnexion
 @app.route('/logout')
 def logout():
     # Effacez les informations de session de l'utilisateur
     session.pop('user_id', None)
-    # Redirigez l'utilisateur vers la page de connexion
-    return redirect('/')
+    # Retournez le contenu HTML de la page de déconnexion
+    return """
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <title>Ma page de déconnexion </title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../static/home.css">
+    </head>
+
+    <body>
+        <div class="header">
+            {% include 'navbar.html' %}
+            <div class="text-box">
+                <h1>Déconnexion Réussie !</h1>
+                <p>à bientôt...</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
 
 
 
