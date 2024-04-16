@@ -1,4 +1,14 @@
 let map;
+let buildingCoordinates = { // Déplacer la déclaration de buildingCoordinates ici
+    "Restaurant CROUS": { lat: 43.23088195706794, lng: 5.439546484046008 },
+    "Hexagone / BU": { lat: 43.22958219470281, lng: 5.441088154203516 },
+    "TECHNOSPORT": { lat: 43.23046503591347, lng: 5.439698134937945 },
+    "TPR1": {lat:43.23278, lng:5.44019},
+    "TPR2": {lat:43.23147, lng:5.43957},
+    "AMPHITHEATRE B": {lat:43.23207, lng:5.44132}, 
+    "AMPHITHEATRE A": {lat:43.23287, lng:5.43962}  
+};
+let currentRoute = null; // Pour stocker l'itinéraire actuel
 // méthode pour afficher la carte 
 async function initMap() {
   const { Map } = await google.maps.importLibrary("maps");
@@ -6,6 +16,7 @@ async function initMap() {
     center: { lat: 43.23198578716377, lng: 5.44133307078618 },// centre de ma carte 
     zoom: 16,// niveau de zoom
   });
+  
 
 
   // Tableau pour stocker les marqueurs
@@ -91,6 +102,169 @@ async function initMap() {
         markers.forEach(function(item) { // for each pour parcourir tous les marqueurs
             item.infoWindow.close();//appel de ma fonction close 
         });
+    }
+
+        // Fonction pour démarrer la navigation
+/*function startNavigation() {
+    // Récupérer les coordonnées de départ et d'arrivée
+    const startPointName = document.querySelector('input[name="localisation-input"]').value;
+    const endPointName = document.querySelector('input[name="destination-input"]').value;
+
+    // Vérifier si les noms des points de départ et d'arrivée sont valides
+    if (startPointName && endPointName) {
+        // Vérifier si les coordonnées des points de départ et d'arrivée existent
+        const startPointCoords = getBuildingCoordinates(startPointName);
+        const endPointCoords = getBuildingCoordinates(endPointName);
+
+        if (startPointCoords && endPointCoords) {
+            // Définir l'itinéraire pour le service de rendu
+            const request = {
+                origin: startPointCoords,
+                destination: endPointCoords,
+                travelMode: 'WALKING' // Mode de déplacement à pied
+            };
+
+            const directionsService = new google.maps.DirectionsService();
+            directionsService.route(request, (result, status) => {
+                if (status === 'OK') {
+                    // Afficher l'itinéraire sur la carte
+                    const directionsRenderer = new google.maps.DirectionsRenderer();
+                    directionsRenderer.setMap(map);
+                    directionsRenderer.setDirections(result);
+
+                    // Récupérer la première étape de l'itinéraire
+                    const leg = result.routes[0].legs[0];
+                    const steps = leg.steps;
+                    let currentStepIndex = 0;
+
+                    // Fonction pour avancer à l'étape suivante
+                    const nextStep = () => {
+                        if (currentStepIndex < steps.length) {
+                            // Déplacer la carte jusqu'à l'étape suivante
+                            map.panTo(steps[currentStepIndex].end_location);
+                            currentStepIndex++;
+
+                            // Vérifier si c'est la dernière étape
+                            if (currentStepIndex === steps.length) {
+                                // Afficher un message lorsque l'arrivée est atteinte
+                                alert('Vous êtes arrivé à destination !');
+                            } else {
+                                // Attendre un court délai avant de passer à l'étape suivante
+                                setTimeout(nextStep, 1000); // Délai en millisecondes (1000 ms = 1 seconde)
+                            }
+                        }
+                    };
+
+                    // Démarrer la navigation en appelant la fonction nextStep
+                    nextStep();
+                } else {
+                    // Gérer les erreurs
+                    console.error('Erreur de calcul d\'itinéraire : ', status);
+                }
+            });
+        } else {
+            // Afficher un message d'erreur si les coordonnées sont manquantes
+            console.error('Coordonnées manquantes pour les points de départ ou d\'arrivée.');
+        }
+    } else {
+        // Afficher un message d'erreur si les noms des points de départ ou d'arrivée sont manquants
+        console.error('Noms des points de départ ou d\'arrivée manquants.');
+    }
+}
+
+// Ajouter un événement de clic au bouton "Démarrer"
+document.getElementById('search-route').addEventListener('click', startNavigation);
+
+// Structure de données contenant les coordonnées des bâtiments
+const buildingCoordinates = {
+    "Restaurant CROUS": { lat: 43.23088195706794, lng: 5.439546484046008 },
+    "Hexagone / BU": { lat: 43.22958219470281, lng: 5.441088154203516 },
+    "TECHNOSPORT": { lat: 43.23046503591347, lng: 5.439698134937945 },
+    "TPR1": {lat:43.23278, lng:5.44019},
+    "TPR2": {lat:43.23147, lng:5.43957},
+    "AMPHITHEATRE B": {lat:43.23207, lng:5.44132}, 
+    "AMPHITHEATRE A": {lat:43.23287, lng:5.43962}  
+};
+
+// Fonction pour récupérer les coordonnées d'un bâtiment par son nom
+function getBuildingCoordinates(buildingName) {
+    // Vérifier si le nom du bâtiment existe dans la structure de données
+    if (buildingName in buildingCoordinates) {
+        return buildingCoordinates[buildingName];
+    } else {
+        // Si le nom du bâtiment n'est pas trouvé, afficher une alerte et retourner null
+        window.alert("Le bâtiment spécifié n'a pas de coordonnées enregistrées.");
+        return null;
+    }
+}*/
+document.getElementById('search-route').addEventListener('click', startNavigation)
+}
+function findShortestPath(startCoords, endCoords) {
+    // Calcul de la distance en ligne droite entre les deux points
+    const distance = Math.sqrt(Math.pow(endCoords.lat - startCoords.lat, 2) + Math.pow(endCoords.lng - startCoords.lng, 2));
+
+    // Pour cet exemple, nous supposons simplement que le chemin le plus court est une ligne droite
+    // Vous pouvez ajouter une logique plus sophistiquée ici pour déterminer le chemin le plus court
+
+    // Retourner un objet représentant le chemin le plus court
+    return {
+        distance: distance,
+        path: [startCoords, endCoords] // Pour cet exemple, nous avons simplement un chemin entre le point de départ et le point d'arrivée
+    };
+}
+
+function clearCurrentRoute() {
+    if (currentRoute) {
+        currentRoute.setMap(null); // Supprimer l'itinéraire de la carte
+        currentRoute = null; // Réinitialiser la variable de l'itinéraire actuel
+    }
+}
+// Fonction pour démarrer la navigation
+function startNavigation() {
+    // Récupérer les noms des points de départ et d'arrivée
+    const startPointName = document.querySelector('input[name="localisation-input"]').value;
+    const endPointName = document.querySelector('input[name="destination-input"]').value;
+
+    // Vérifier si les noms des points de départ et d'arrivée sont valides
+    if (startPointName && endPointName) {
+        // Récupérer les coordonnées des points de départ et d'arrivée
+        const startPointCoords = getBuildingCoordinates(startPointName);
+        const endPointCoords = getBuildingCoordinates(endPointName);
+
+        if (startPointCoords && endPointCoords) {
+            // Supprimer l'itinéraire existant s'il y en a un
+            clearCurrentRoute();
+
+            // Trouver le chemin le plus court entre les points de départ et d'arrivée
+            const shortestPath = findShortestPath(startPointCoords, endPointCoords);
+
+            // Afficher l'itinéraire sur la carte
+            const pathCoordinates = shortestPath.path.map(point => new google.maps.LatLng(point.lat, point.lng));
+            currentRoute = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            currentRoute.setMap(map);
+
+            // Centrer la carte sur le premier point de l'itinéraire
+            map.setCenter(pathCoordinates[0]);
+        } else {
+            console.error('Coordonnées manquantes pour les points de départ ou d\'arrivée.');
+        }
+    } else {
+        console.error('Noms des points de départ ou d\'arrivée manquants.');
+    }
+}
+// Fonction pour récupérer les coordonnées d'un bâtiment par son nom
+function getBuildingCoordinates(buildingName) {
+    if (buildingName in buildingCoordinates) {
+        return buildingCoordinates[buildingName];
+    } else {
+        window.alert("Le bâtiment spécifié n'a pas de coordonnées enregistrées.");
+        return null;
     }
 }
 
