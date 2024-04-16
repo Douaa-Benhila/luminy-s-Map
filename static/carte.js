@@ -8,6 +8,8 @@ let buildingCoordinates = { // Déplacer la déclaration de buildingCoordinates 
     "AMPHITHEATRE B": {lat:43.23207, lng:5.44132}, 
     "AMPHITHEATRE A": {lat:43.23287, lng:5.43962}  
 };
+let userMarker; // Variable pour stocker le marqueur de l'utilisateur
+
 let currentRoute = null; // Pour stocker l'itinéraire actuel
 // méthode pour afficher la carte 
 async function initMap() {
@@ -198,7 +200,58 @@ function getBuildingCoordinates(buildingName) {
     }
 }*/
 document.getElementById('search-route').addEventListener('click', startNavigation)
+
+
+document.getElementById('localisation-user').addEventListener('click',startWatchingUserLocation)
+     // Fonction pour obtenir la position actuelle de l'utilisateur
+// Fonction pour démarrer la surveillance de la position de l'utilisateur
+function startWatchingUserLocation() {
+    // Vérifier si la géolocalisation est disponible dans le navigateur
+    if (navigator.geolocation) {
+        // Démarrer la surveillance de la position de l'utilisateur
+        watchId = navigator.geolocation.watchPosition(
+            (position) => {
+                const userPosition = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                // Mettre à jour la position du marqueur de l'utilisateur
+                if (userMarker) {
+                    userMarker.setPosition(userPosition);
+                } else {
+                    // Créer un nouveau marqueur pour l'utilisateur
+                    userMarker = new google.maps.Marker({
+                        position: userPosition,
+                        map: map,
+                        icon: {
+                            url: '../static/me.png', // URL de l'icône pour représenter l'utilisateur
+                            scaledSize: new google.maps.Size(50, 50), // Taille de l'icône
+                            origin: new google.maps.Point(0, 0), // Point d'origine de l'icône
+                            anchor: new google.maps.Point(25, 50) // Point d'ancrage de l'icône
+                        }
+                    });
+                }
+
+                // Centrer la carte sur la position de l'utilisateur
+                map.setCenter(userPosition);
+            },
+            (error) => {
+                console.error('Erreur de géolocalisation :', error);
+            },
+            {
+                enableHighAccuracy: true, // Activer une localisation plus précise si possible
+                maximumAge: 10000 // Utiliser les données de localisation en cache jusqu'à 10 secondes
+            }
+        );
+    } else {
+        console.error('La géolocalisation n\'est pas prise en charge dans ce navigateur.');
+    }
 }
+
+// Appeler la fonction pour démarrer la surveillance de la position de l'utilisateur
+startWatchingUserLocation();
+
 function findShortestPath(startCoords, endCoords) {
     // Calcul de la distance en ligne droite entre les deux points
     const distance = Math.sqrt(Math.pow(endCoords.lat - startCoords.lat, 2) + Math.pow(endCoords.lng - startCoords.lng, 2));
@@ -268,5 +321,5 @@ function getBuildingCoordinates(buildingName) {
     }
 }
 
-
-initMap();// appel la fonction pour afficher la map une fois quand l'initialise 
+}
+initMap();// appel la fonction pour afficher la map une fois quand l'initialise_
