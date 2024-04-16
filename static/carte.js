@@ -7,21 +7,33 @@ async function initMap() {
     zoom: 16,// niveau de zoom
   });
 
+
+  // Tableau pour stocker les marqueurs
+  let markers = []
   // logique pour ajouter des marqueurs 
-function addMarker(prop) {
-    let marker = new google.maps.Marker({
-        position: prop.coordinates,
-        map: map
+    function addMarker(prop) { // argument prop renvoie aux arguments du marqueur
+        let marker = new google.maps.Marker({ // créer marqeur avec se qui suit égale
+            position: prop.coordinates,
+            map: map
     });
-    if (prop.content) {
-        let information = new google.maps.InfoWindow({
-            content: prop.content
+        if (prop.content) { // si l'info existe 
+            let information = new google.maps.InfoWindow({ // on créer info window (bulle)
+                content: prop.content
         });
         
-        //Listener d'ecoute sur le marker par defaut afficher sur la map
+        //j'ai ajouté un ecouteur d'évenement 
         marker.addListener("click", function () {
+            // Fermer toutes les infobulles ouvertes avant d'ouvrir celle associée à ce marqueur
+            closeAllInfoWindows();
             information.open(map, marker);
         });
+
+        // Ajouter le marqueur et son info-bulle au tableau des marqueurs
+        markers.push({
+            marker: marker,
+            infoWindow: information
+        });
+
     }
 }
 
@@ -59,6 +71,13 @@ function addMarker(prop) {
         coordinates: { lat: 43.23287, lng: 5.43962 },
         content: '<h4> AMPHITHEATRE A</h4>'
     }); 
+
+    // Fonction pour fermer toutes les infobulles ouvertes
+    function closeAllInfoWindows() {
+        markers.forEach(function(item) { // for each pour parcourir tous les marqueurs
+            item.infoWindow.close();//appel de ma fonction close 
+        });
+    }
 }
 
 
