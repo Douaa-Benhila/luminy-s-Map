@@ -249,8 +249,6 @@ function startWatchingUserLocation() {
     }
 }
 
-// Appeler la fonction pour démarrer la surveillance de la position de l'utilisateur
-startWatchingUserLocation();
 
 function findShortestPath(startCoords, endCoords) {
     // Calcul de la distance en ligne droite entre les deux points
@@ -369,4 +367,6 @@ function getBuildingCoordinates(buildingName) {
 }
 
 }
-initMap();// appel la fonction pour afficher la map une fois quand l'initialise_
+initMap();// appel la fonction pour afficher la map une fois quand l'initialise
+// Appel pour démarrer la surveillance de la localisation de l'utilisateur
+startWatchingUserLocation();
