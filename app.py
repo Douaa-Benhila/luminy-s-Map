@@ -68,7 +68,8 @@ def carte():
 # route pour la page d'accueil
 @app.route('/')
 def home():
-    return render_template('home.html')
+    user = session.get('user_id')  
+    return render_template('home.html', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
@@ -136,7 +137,7 @@ def logout():
 
     <body>
         <div class="header">
-            {% include 'navbar.html' %}
+            {% include 'navbar.html' %}  <!-- Utilisez le chemin correct vers navbar.html -->
             <div class="text-box">
                 <h1>Déconnexion Réussie !</h1>
                 <p>à bientôt...</p>
