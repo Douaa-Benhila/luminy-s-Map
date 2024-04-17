@@ -10,8 +10,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!--lien vers les icones-->
 </head>
 
-
 <body>
+  <div class="header">
+    {% include 'navbar.html' %}
+  </div>
+  <div id="map"></div>
   <div class="top-section">
     <div class="inputs-container">
       <div id="input-box">
@@ -19,38 +22,42 @@
         <datalist id="points_départ">
           <option value="TPR1">
           <option value="TPR2">
-          <option value="BATIMENT A">
-          <option value="BATIMENT B">
+          <option value="AMPHITHEATRE A">
+          <option value="AMPHITHEATRE">
           <option value="Restaurant CROUS">
           <option value="Hexagone / BU">
           <option value="TECHNOSPORT">
         </datalist>
-        <i class='bx bx-map' ></i>
+        <i class='bx bx-map' id="localisation-user"></i>
+
         <br>
         <input name="destination-input" list="points_arrivée" placeholder="ma  destination...">
         <datalist id="points_arrivée">
           <option value="TPR1">
           <option value="TPR2">
-          <option value="BATIMENT A">
-          <option value="BATIMENT B">
+          <option value="AMPHITHEATRE A">
+          <option value="AMPHITHEATRE B">
           <option value="Restaurant CROUS">
           <option value="Hexagone / BU">
           <option value="TECHNOSPORT">
         </datalist>
-        <i class='bx bx-search'></i>
+        <i class="bx bx-search" id="search-route"></i>
+        
+
+
+
       </div>
     </div>
+    <footer>
+      <p>© 2024 Université Luminy</p>
+  </footer>
 </div>
-<!-- Section pour afficher la carte en plein écran -->
-<div id="map"></div>
+
+
+
 
 
     <script src="../static/carte.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          initMap();
-      });
-  </script>
 
 </body>
 </html>

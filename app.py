@@ -56,9 +56,11 @@ def login(username, password):
 # Page du map
 @app.route('/carte.html')
 def carte():
+    user = session.get('user_id')
     if 'user_id' in session:
+        user = {'is_authenticated': True}  # ou récupérez l'objet utilisateur complet de la base de données
         # Si l'utilisateur est connecté, renvoyer la map
-        return render_template('carte.html')
+        return render_template('carte.html',user=user )
     else:
         # Sinon, rediriger vers la page de connexion
         return redirect('/login')
@@ -68,7 +70,9 @@ def carte():
 # route pour la page d'accueil
 @app.route('/')
 def home():
-    user = session.get('user_id')  
+    user = session.get('user_id') 
+    if user:
+        user = {"is_authenticated": True} 
     return render_template('home.html', user=user)
 
 #route pour ma deuxieme page + quelques syntaxe d'apparition des messages.
@@ -139,10 +143,10 @@ def logout():
 
     <body>
         <div class="header">
-            {% include 'navbar.html' %}  <!-- Utilisez le chemin correct vers navbar.html -->
             <div class="text-box">
                 <h1>Déconnexion Réussie !</h1>
                 <p>à bientôt...</p>
+                <a href="/" style="color: white;">HOME</a>
             </div>
         </div>
     </body>

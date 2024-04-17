@@ -1,28 +1,59 @@
-/* CSS pour la page */
-body, html {
+* {
     margin: 0;
     padding: 0;
-    height: 100%;
+    box-sizing: border-box;
 }
 
-/* CSS pour la carte en plein écran */
-#map {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Pour que la carte soit en arrière-plan */
-}
-
-/* CSS pour la section des entrées en haut de la page */
-.top-section {
-    background-color: rgba(255, 255, 255, 0.5); /* Fond transparent */
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 1;
-    max-width: 600px; /* Limiter la largeur pour centrer la boîte d'entrée */
-    margin: 0 auto; /* Centrer horizontalement */
-    margin-top: 50px; /* Marge supérieure pour laisser de l'espace avec la carte */
 }
+
+/* Wrapper styles */
+#wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Map styles */
+#map {
+    height: 400px; /* Ajustez la hauteur selon vos besoins */
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+/* Input box styles */
+#input-box {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input styles */
+input[type="text"] {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Icon styles */
+i[class^="bx"] {
+    font-size: 24px;
+    color: #333;
+    margin-left: 10px;
+    cursor: pointer;
+}
+footer {
+    position: fixed; /* Position fixée pour maintenir en bas de la page */
+    bottom: 0; /* Positionnement en bas de la page */
+    left: 0; /* Début de la position horizontale */
+    right: 0; /* Fin de la position horizontale */
+    padding: 20px; /* Espacement autour du contenu */
+    text-align: center; /* Centrage du contenu */
+    color: #ffffff; /* Couleur du texte (blanc) */
+  }

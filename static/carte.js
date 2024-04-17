@@ -255,7 +255,6 @@ function findShortestPath(startCoords, endCoords) {
     const distance = Math.sqrt(Math.pow(endCoords.lat - startCoords.lat, 2) + Math.pow(endCoords.lng - startCoords.lng, 2));
 
     // Pour cet exemple, nous supposons simplement que le chemin le plus court est une ligne droite
-    // Vous pouvez ajouter une logique plus sophistiquée ici pour déterminer le chemin le plus court
 
     // Retourner un objet représentant le chemin le plus court
     return {
@@ -270,46 +269,7 @@ function clearCurrentRoute() {
         currentRoute = null; // Réinitialiser la variable de l'itinéraire actuel
     }
 }
-// Fonction pour démarrer la navigation
-/*function startNavigation() {
-    // Récupérer les noms des points de départ et d'arrivée
-    const startPointName = document.querySelector('input[name="localisation-input"]').value;
-    const endPointName = document.querySelector('input[name="destination-input"]').value;
 
-    // Vérifier si les noms des points de départ et d'arrivée sont valides
-    if (startPointName && endPointName) {
-        // Récupérer les coordonnées des points de départ et d'arrivée
-        const startPointCoords = getBuildingCoordinates(startPointName);
-        const endPointCoords = getBuildingCoordinates(endPointName);
-
-        if (startPointCoords && endPointCoords) {
-            // Supprimer l'itinéraire existant s'il y en a un
-            clearCurrentRoute();
-
-            // Trouver le chemin le plus court entre les points de départ et d'arrivée
-            const shortestPath = findShortestPath(startPointCoords, endPointCoords);
-
-            // Afficher l'itinéraire sur la carte
-            const pathCoordinates = shortestPath.path.map(point => new google.maps.LatLng(point.lat, point.lng));
-            currentRoute = new google.maps.Polyline({
-                path: pathCoordinates,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-            });
-            currentRoute.setMap(map);
-
-            // Centrer la carte sur le premier point de l'itinéraire
-            map.setCenter(pathCoordinates[0]);
-        } else {
-            console.error('Coordonnées manquantes pour les points de départ ou d\'arrivée.');
-        }
-    } else {
-        console.error('Noms des points de départ ou d\'arrivée manquants.');
-    }
-}*/
- 
 function startNavigation() {
     // Récupérer le nom du point de destination choisi par l'utilisateur
     const endPointName = document.querySelector('input[name="destination-input"]').value;
@@ -342,7 +302,7 @@ function startNavigation() {
         currentRoute = new google.maps.Polyline({
             path: pathCoordinates,
             geodesic: true,
-            strokeColor: '#FF0000',
+            strokeColor: '#000fff',
             strokeOpacity: 1.0,
             strokeWeight: 2
         });
@@ -365,6 +325,7 @@ function getBuildingCoordinates(buildingName) {
         return null;
     }
 }
+
 
 }
 initMap();// appel la fonction pour afficher la map une fois quand l'initialise
