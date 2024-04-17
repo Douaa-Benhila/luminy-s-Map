@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request, redirect, session  #importation
+from flask import Flask, render_template, request, redirect, session, flash#importation
 import sqlite3 
 
 app = Flask(__name__)
@@ -71,9 +71,11 @@ def home():
     user = session.get('user_id')  
     return render_template('home.html', user=user)
 
+#route pour ma deuxieme page + quelques syntaxe d'apparition des messages.
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
     error_message = None
+    user = session.get('user_id')  # Récupérer l'utilisateur connecté s'il y en a un, sinon None
     if 'user_id' in session:
         # Si l'utilisateur est déjà connecté, redirigez-le vers la page de carte
         return redirect('/carte.html')
@@ -87,12 +89,12 @@ def login_page():
             session['user_id'] = user_id_db
             return redirect('/carte.html')
         else:
-            error_message = 'Mauvais identifiant / mot de passe.'
+             flash('Mauvais identifiant ou mot de passe.', 'error')
     
     # Si la méthode de requête est GET ou si l'authentification échoue, affichez la page de connexion
-    return render_template('login.html', error_message=error_message)
+    return render_template('login.html', error_message=error_message, user=user)
 
-# route pour la page d'inscription
+# route pour la page d'inscription + la définition de la méthode
 @app.route('/signup', methods=['POST'])
 def signup():
     username = request.form['username']
