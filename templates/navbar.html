@@ -13,9 +13,10 @@
               <li><a href="/">HOME</a></li>
               <li><a href="{{ url_for('login_page') }}">SIGN-UP / LOG-IN</a></li>
               {% if user.is_authenticated %}
-              <li><a href = "{{ url_for('carte') }}" ></a>MAP </li> 
+              <li><a href="{{ url_for('carte') }}">MAP</a></li> 
               <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
               {% endif %}
+              
             </ul>
         </div>
     </nav>
