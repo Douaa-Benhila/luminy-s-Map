@@ -89,3 +89,28 @@ footer {
   background-color: #000;
   color: #ffeba7;
 }
+
+.alert-container {
+  width: 100%; /* Largeur complète pour contenir les alertes */
+  position: absolute; /* Position absolue pour placer en haut du container */
+  top: 0;
+  left: 0;
+  text-align: center; /* Centrer le texte des alertes */
+  z-index: 1000; /* S'assurer que les alertes sont au-dessus des autres éléments */
+}
+
+.alert {
+  padding: 10px;
+  color: white;
+  margin-top: 10px; /* Ajouter un peu d'espace en haut */
+  display: inline-block; /* Affichage en ligne pour mieux contrôler la taille */
+}
+
+.alert.error {
+  background-color: #f44336; /* Rouge pour les erreurs */
+  text-align: center;
+}
+
+.alert.success {
+  background-color: #4CAF50; /* Vert pour les succès */
+}
