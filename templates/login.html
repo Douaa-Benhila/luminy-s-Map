@@ -3,66 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Page de connexion</title>
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="../static/login.css">
 </head>
 <body>
-  {% include 'navbar.html' %}
-  <div class="section">
-    <div class="container">
-      <div class="row full-height justify-content-center">
-        <div class="col-12 text-center align-self-center py-5">
-          <div class="section pb-5 pt-5 pt-sm-2 text-center">
-            <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
-            <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
-            <label for="reg-log"></label>
-            <div class="card-3d-wrap mx-auto">
-              <div class="card-3d-wrapper">
-                <!-- Formulaire de connexion -->
-                <div class="card-front">
-                  <div class="center-wrap">
-                    <div class="section text-center">
-                      <h4 class="mb-4 pb-3">Log In</h4>
-                      <form method="POST" action="{{ url_for('login_page') }}">
-                        <div class="form-group">
-                          <input type="text" name="username" class="form-style" placeholder="Nom d'utilisateur">
-                          <i class="input-icon uil uil-user"></i>
-                        </div>  
-                        <div class="form-group mt-2">
-                          <input type="password" name="password" class="form-style" placeholder="Mot de passe">
-                          <i class="input-icon uil uil-lock-alt"></i>
-                        </div>
-                        <button type="submit" class="btn mt-4">Log In</button>
-                      </form>
-                    </div>
-                  </div>
+
+    {% include 'navbar.html' %}
+  
+  
+  <div class="my-login-section">
+    <div class="my-login-container">
+      <div class="my-login-row my-full-height my-justify-content-center">
+        <div class="my-login-col-6 my-text-center my-align-self-center my-py-5">
+          <div class="my-section my-pb-5 my-pt-5 my-pt-sm-2 my-text-center">
+            <div class="my-signup-box">
+              <h4 class="mb-3 pb-3">Sign Up</h4>
+              <form method="POST" action="{{ url_for('signup') }}">
+                <div class="my-form-group">
+                  <input type="text" name="username" class="my-form-style" placeholder="Nom d'utilisateur">
+                </div>      
+                <div class="my-form-group mt-2">
+                  <input type="password" name="password" class="my-form-style" placeholder="Mot de passe">
                 </div>
-              </div>
-              <!-- Formulaire d'inscription -->
-              <div class="card-back">
-                <div class="center-wrap">
-                  <div class="section text-center">
-                    <h4 class="mb-3 pb-3">Sign Up</h4>
-                    <form method="POST" action="{{ url_for('signup') }}">
-                      <div class="form-group">
-                        <input type="text" name="username" class="form-style" placeholder="Nom d'utilisateur">
-                        <i class="input-icon uil uil-user"></i>
-                      </div>      
-                      <div class="form-group mt-2">
-                        <input type="password" name="password" class="form-style" placeholder="Mot de passe">
-                        <i class="input-icon uil uil-lock-alt"></i>
-                      </div>
-                      <button type="submit" class="btn mt-4">Sign Up</button>
-                    </form>
-                  </div>
+                <button type="submit" class="my-btn mt-4">Sign Up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="my-login-col-6 my-text-center my-align-self-center my-py-5">
+          <div class="my-section my-pb-5 my-pt-5 my-pt-sm-2 my-text-center">
+            <div class="my-login-box">
+              <h4 class="mb-4 pb-3">Log In</h4>
+              <form method="POST" action="{{ url_for('login_page') }}">
+                <div class="my-form-group">
+                  <input type="text" name="username" class="my-form-style" placeholder="Nom d'utilisateur">
+                </div>  
+                <div class="my-form-group mt-2">
+                  <input type="password" name="password" class="my-form-style" placeholder="Mot de passe">
                 </div>
-              </div>
+                <button type="submit" class="my-btn mt-4">Log In</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>© 2024 Université Luminy</p>
+  </footer>
 </body>
 </html>
