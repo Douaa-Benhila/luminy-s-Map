@@ -1,8 +1,8 @@
-## 🌍 Présentation Visuelle du Projet : LUMIN’S MAP
+##  Présentation Visuelle du Projet : LUMIN’S MAP
 
 LUMIN’S MAP est une application web interactive permettant de se repérer facilement dans les bâtiments de l’Université d’Aix-Marseille, campus de Luminy. Ce projet mêle développement web front-end et back-end pour offrir une expérience utilisateur fluide et pratique.
 
-### 🔧 Technologies utilisées
+###  Technologies utilisées
 - **Front-end** : HTML, CSS, JavaScript
 - **Back-end** : Python avec Flask
 - **API** : Intégration de Google Maps API
